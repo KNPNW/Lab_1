@@ -9,7 +9,7 @@ public:
     Array(const Array& oldArray);
     ~Array();
 
-    void add(const MusCompClass& newObj);
+    void pushBack(const MusCompClass& newObj);
     void insert(const MusCompClass& newObj, int num);
     void del();
     void del(int num);

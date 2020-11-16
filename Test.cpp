@@ -3,7 +3,7 @@
 #include "Array.h"
 #include <string>
 #include <assert.h>
-#include <iostream>
+
 
 using namespace std;
 const string DEFAULT_NAME = "no name";
@@ -48,38 +48,50 @@ void testInitAndCopyConstructor() {
 void testArray(){
     Array firstArray;
     firstArray.fromFile("/Users/kirillpadalica/HSE/2nd year/OOP/Laboratory/Lab1/testData.txt");
+
+    printAllArray(firstArray);
+
     Array secondArray(firstArray);
-    bool result;
-    result = firstArray.comparison(secondArray);
-    assert(result == true);
+    assert(firstArray.comparison(secondArray) == true);
+
     secondArray.del();
-    result = firstArray.comparison(secondArray);
-    assert(result == false);
-    Array emptyArray;
+    assert(  firstArray.comparison(secondArray) == false);
+
     secondArray.delAll();
-    result = secondArray.comparison(emptyArray);
-    assert(result == true);
+    assert(secondArray.getSize() == 0);
+
     MusCompClass obj("Цой", "Кукушка", {5.1, 2.3});
     firstArray.insert(obj, 2);
-    MusCompClass getObj = firstArray.getObject(2);
-    assert(getObj.getName() == "Цой");
+    assert(firstArray.getObject(2).getName() == "Цой");
+
     secondArray.copyArray(firstArray);
-    result = firstArray.comparison(secondArray);
-    assert(result == true);
+    assert(firstArray.comparison(secondArray) == true);
+
     int size = firstArray.getSize();
     assert(size == 13);
+
+    secondArray.del();
     secondArray.toFile("/Users/kirillpadalica/HSE/2nd year/OOP/Laboratory/Lab1/output.txt");
-    emptyArray.fromFile("/Users/kirillpadalica/HSE/2nd year/OOP/Laboratory/Lab1/output.txt");
-    result = emptyArray.comparison(firstArray);
-    assert(result == true);
+    firstArray.fromFile("/Users/kirillpadalica/HSE/2nd year/OOP/Laboratory/Lab1/output.txt");
+    assert(firstArray.comparison(secondArray) == true);
+
     Array initArray(obj);
     assert(initArray.getObject(0).getName() == "Цой");
-    secondArray.add(obj);
+    assert(initArray.getSize() == 1);
+
+    assert(secondArray.getSize() == 12);
+    secondArray.pushBack(obj);
+    assert(secondArray.getSize() == 13);
     assert(secondArray.getLastObject().getName() == "Цой");
+
+    assert(secondArray.getSize() == 13);
     secondArray.del();
+    assert(secondArray.getSize() == 12);
     assert(secondArray.getLastObject().getName() != "Цой");
+
     secondArray.insert(obj, 5);
     assert(secondArray.getObject(5).getName() == "Цой");
+
     secondArray.del(5);
     assert(secondArray.getObject(5).getName() != "Цой");
 }

@@ -14,7 +14,7 @@ Array::Array(){
 Array::Array(const MusCompClass& obj){
     objects = NULL;
     size = 0;
-    this->add(obj);
+    this->pushBack(obj);
 }
 Array::Array(const Array &oldArray){
     size = oldArray.getSize();
@@ -29,7 +29,7 @@ Array::~Array(){
     delete [] objects;
 }
 
-void Array::add(const MusCompClass& newObj) {
+void Array::pushBack(const MusCompClass& newObj) {
     addOnePlace();
     objects[size] = newObj;
     size++;
@@ -37,7 +37,7 @@ void Array::add(const MusCompClass& newObj) {
 
 void Array::insert(const MusCompClass& newObj, int num) {
     if (size == 0 && num == 0)
-        this->add(newObj);
+        this-> pushBack(newObj);
     else {
         MusCompClass *newArr = new MusCompClass[size + 1];
         for (int i = 0; i < size; i++) {
@@ -142,7 +142,7 @@ Array Array::sortLimit(double minFMood, double maxFMood, double minSMood, double
         middleMood = this->getObject(i).getMood();
         if (middleMood.first >= minFMood && middleMood.first <= maxFMood &&
             middleMood.second >= minSMood && middleMood.second <= maxSMood)
-            middleArr.add(this->getObject(i));
+            middleArr.pushBack(this->getObject(i));
     }
 
     if(middleArr.getSize() == 0)
@@ -159,7 +159,7 @@ Array Array::sortLimit(double minFMood, double maxFMood, double minSMood, double
                 minNum = i;
             }
         }
-        resultArr.add(middleArr.getObject(minNum));
+        resultArr.pushBack(middleArr.getObject(minNum));
         middleArr.del(minNum);
     }
     while (middleArr.getSize() != 0){
@@ -175,7 +175,7 @@ Array Array::sortLimit(double minFMood, double maxFMood, double minSMood, double
                 minNum = i;
             }
         }
-        resultArr.add(middleArr.getObject(minNum));
+        resultArr.pushBack(middleArr.getObject(minNum));
         middleArr.del(minNum);
     }
     return resultArr;
@@ -191,6 +191,8 @@ void Array::fromFile(const string& nameFile){
     if (!file) {
         cout << "File not found" << endl;
     } else {
+        if (size != 0)
+            this->delAll();
         while(!file.eof()){
             getline(file, author);
             getline(file, name);
@@ -200,7 +202,7 @@ void Array::fromFile(const string& nameFile){
             promF >> fMood;
             promS >> sMood;
             MusCompClass obj(name, author, {fMood, sMood});
-            this->add(obj);
+            this->pushBack(obj);
         };
         file.close();
     }
@@ -238,7 +240,7 @@ void Array::copyArray(const Array& fromArray){
     MusCompClass obj;
     for(int i = 0; i < sizeArr; i++) {
         obj = fromArray.getObject(i);
-        this->add(obj);
+        this->pushBack(obj);
     }
 }
 
