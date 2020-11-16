@@ -3,5 +3,6 @@
 
 void testInitAndCopyConstructor();
 void testDefaultConstructorAndSets();
+void testArray();
 
 #endif //L1_TEST_H

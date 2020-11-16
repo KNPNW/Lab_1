@@ -42,4 +42,11 @@ void MusCompClass::setMood(const double & fMood, const double & sMood) {
     musicMood = {fMood, sMood};
 }
 
+bool MusCompClass::equalObj(const MusCompClass& secondObj) {
+    return musicName == secondObj.getName() &&
+           musicAuthor == secondObj.getAuthor() &&
+           musicMood.first == secondObj.getMood().first &&
+           musicMood.second == secondObj.getMood().second;
+}
+
 

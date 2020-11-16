@@ -11,6 +11,11 @@ Array::Array(){
     size = 0;
 }
 
+Array::Array(const MusCompClass& obj){
+    objects = NULL;
+    size = 0;
+    this->add(obj);
+}
 Array::Array(const Array &oldArray){
     size = oldArray.getSize();
     objects = new MusCompClass[size];
@@ -130,7 +135,6 @@ Array Array::sortLimit(double minFMood, double maxFMood, double minSMood, double
 
     for(int i = 0; i < size; i++){
         middleMood = this->getObject(i).getMood();
-        cout << middleMood.first << endl;
         if (middleMood.first >= minFMood && middleMood.first <= maxFMood &&
             middleMood.second >= minSMood && middleMood.second <= maxSMood)
             middleArr.add(this->getObject(i));
@@ -167,14 +171,9 @@ Array Array::sortLimit(double minFMood, double maxFMood, double minSMood, double
             }
         }
         resultArr.add(middleArr.getObject(minNum));
-        cout << resultArr.getLastObject().getName() << endl;
         middleArr.del(minNum);
     }
-
-
-
-
-
+    return resultArr;
 }
 
 void Array::fromFile(const string& nameFile){
@@ -199,5 +198,52 @@ void Array::fromFile(const string& nameFile){
             this->add(obj);
         };
         file.close();
+    }
+}
+
+void Array::toFile(const string& nameFile){
+    ofstream file(nameFile);
+    for(int i = 0; i < size-1; i++){
+        MusCompClass obj = this->getObject(i);
+        file << obj.getAuthor() << endl << obj.getName() << endl << obj.getMood().first << endl <<  obj.getMood().second << endl;
+    }
+    MusCompClass obj = this->getObject(size-1);
+    file << obj.getAuthor() << endl << obj.getName() << endl << obj.getMood().first << endl <<  obj.getMood().second;
+
+    file.close();
+}
+
+const bool Array::comparison(const Array& secondArray) const{
+    int secondSize = secondArray.getSize();
+    MusCompClass obj;
+
+    if(secondSize != size)
+        return false;
+
+    for(int i = 0; i < size; i++){
+        if (!objects[i].equalObj(secondArray.getObject(i)))
+            return false;
+    }
+    return true;
+}
+
+void Array::copyArray(const Array& fromArray){
+    this->delAll();
+    int sizeArr = fromArray.getSize();
+    MusCompClass obj;
+    for(int i = 0; i < sizeArr; i++) {
+        obj = fromArray.getObject(i);
+        this->add(obj);
+    }
+}
+
+void printAllArray(const Array& arr){
+    int size = arr.getSize();
+    MusCompClass obj;
+    for(int i = 0; i < size; i++){
+         obj = arr.getObject(i);
+         cout << "Element #" << i + 1 << endl;
+         cout << obj.getAuthor() << endl << obj.getName() << endl;
+         cout << obj.getMood().first << endl <<  obj.getMood().second << endl << endl;
     }
 }

@@ -24,7 +24,7 @@ public:
     void setAuthor(const string& newAuthor);
     void setMood(const mood& newMood);
     void setMood(const double& fMood, const double& sMood);
-
+    bool equalObj(const MusCompClass& secondObj);
 private:
     string musicName {"no name"};
     string musicAuthor {"no author"};
