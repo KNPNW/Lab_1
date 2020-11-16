@@ -36,19 +36,23 @@ void Array::add(const MusCompClass& newObj) {
 }
 
 void Array::insert(const MusCompClass& newObj, int num) {
-    MusCompClass *newArr = new MusCompClass[size+1];
-    for (int i = 0; i < size; i++) {
-        newArr[i] = objects[i];
+    if (size == 0 && num == 0)
+        this->add(newObj);
+    else {
+        MusCompClass *newArr = new MusCompClass[size + 1];
+        for (int i = 0; i < size; i++) {
+            newArr[i] = objects[i];
+        }
+        delete[] objects;
+        objects = newArr;
+        int i;
+        objects[size] = objects[size - 1];
+        for (i = size - 1; i >= num; i--) {
+            objects[i + 1] = objects[i];
+        }
+        objects[i + 1] = newObj;
+        size++;
     }
-    delete [] objects;
-    objects = newArr;
-    int i;
-    objects[size] = objects[size-1];
-    for(i = size-1; i >= num; i--) {
-        objects[i + 1] = objects[i];
-    }
-    objects[i+1] = newObj;
-    size++;
 }
 
 void Array::del(){
@@ -62,7 +66,7 @@ void Array::del(){
 
 void Array::del(int num){
     if (num < 0 || num > size) {
-        cout << "Error" << endl;
+        cout << "Error. Object with num " << num << " don't exist!" << endl;
         return;
     }
 
@@ -99,8 +103,9 @@ const int Array::getSize() const {
 
 MusCompClass &Array::getObject(int num) const{
     if(num < 0 || num >= size) {
-        cout << "Error" << endl;
-        num = 0;
+        cout << "Error. Object with num " << num << " don't exist!" << endl;
+        MusCompClass empty;
+        return empty;
     }
     return objects[num];
 }
