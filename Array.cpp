@@ -39,7 +39,7 @@ void Array::insert(const MusCompClass& newObj, int num) {
     if (size == 0 && num == 0)
         this-> pushBack(newObj);
     else {
-        MusCompClass *newArr = new MusCompClass[size + 1];
+        MusCompClass *newArr = new MusCompClass[size+1];
         for (int i = 0; i < size; i++) {
             newArr[i] = objects[i];
         }

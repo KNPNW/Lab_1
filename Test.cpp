@@ -47,7 +47,7 @@ void testInitAndCopyConstructor() {
 
 void testArray(){
     Array firstArray;
-    firstArray.fromFile("/Users/kirillpadalica/HSE/2nd year/OOP/Laboratory/Lab1/testData.txt");
+    firstArray.fromFile("/Users/kirillpadalica/HSE/2nd_year/OOP/Laboratory/Lab1/testData.txt");
 
     printAllArray(firstArray);
 
@@ -71,8 +71,8 @@ void testArray(){
     assert(size == 13);
 
     secondArray.del();
-    secondArray.toFile("/Users/kirillpadalica/HSE/2nd year/OOP/Laboratory/Lab1/output.txt");
-    firstArray.fromFile("/Users/kirillpadalica/HSE/2nd year/OOP/Laboratory/Lab1/output.txt");
+    secondArray.toFile("/Users/kirillpadalica/HSE/2nd_year/OOP/Laboratory/Lab1/output.txt");
+    firstArray.fromFile("/Users/kirillpadalica/HSE/2nd_year/OOP/Laboratory/Lab1/output.txt");
     assert(firstArray.comparison(secondArray) == true);
 
     Array initArray(obj);

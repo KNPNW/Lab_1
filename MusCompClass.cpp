@@ -9,6 +9,8 @@ MusCompClass::MusCompClass(const string &newName, const string &newAuthor, const
     musicMood = newMood;
 }
 
+MusCompClass::~MusCompClass(){}
+
 MusCompClass::MusCompClass(const MusCompClass& existMusic):
         musicName(existMusic.musicName),
         musicAuthor(existMusic.musicAuthor),
