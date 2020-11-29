@@ -1,7 +1,7 @@
 #ifndef LAB1_POPYRICLASS_H
 #define LAB1_POPYRICLASS_H
 
-#include "ParentClass.h"
+#include "MusCompClass.h"
 #include <string>
 
 using namespace std;
@@ -11,23 +11,22 @@ struct moodPopyri{
     double finishMood;
 };
 
-class PopyriClass : public ParentClass{
+class PopyriClass : public MusCompClass{
 public:
     PopyriClass() = default;
-    PopyriClass(const string& newName, const moodPopyri& newMood);
+    PopyriClass(const string& newName, const string& newAuthor, const mood& newMood, const moodPopyri& newPMood);
     PopyriClass(const PopyriClass& existPopyri);
     virtual ~PopyriClass() {};
 
-    [[nodiscard]] const string& getPopyriName()const;
-    [[nodiscard]] const moodPopyri& getPopyriMood()const;
+    const moodPopyri& getPopyriMood()const;
 
-    void setPopyriName(const string& newName);
+    virtual void printParams() const;
     void setPopyriMood(const moodPopyri& newMood);
     void setPopyriMood(const double& sMood, const double& fMood);
+    bool equalPObj(PopyriClass* secondObj);
 
-    virtual string get_class() override {return "PopyriClass";};
+    virtual string get_class() {return "PopyriClass";};
 private:
-    string popyriName {"no name"};
     moodPopyri popyriMood {0.0, 0.0};
 };
 

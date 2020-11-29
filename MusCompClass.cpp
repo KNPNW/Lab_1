@@ -1,4 +1,5 @@
 #include "MusCompClass.h"
+#include <iostream>
 #include <string>
 
 using namespace std;
@@ -28,6 +29,13 @@ const mood& MusCompClass::getMood() const {
     return musicMood;
 }
 
+void MusCompClass::printParams() const {
+    cout << "MusCompClass" << endl;
+    cout << "Name: " << musicName << endl;
+    cout << "Author: " << musicAuthor << endl;
+    cout << "Mood: " << musicMood.first << " " << musicMood.second << endl;
+}
+
 void MusCompClass::setName(const string &newName){
     musicName = newName;
 }
@@ -44,11 +52,9 @@ void MusCompClass::setMood(const double & fMood, const double & sMood) {
     musicMood = {fMood, sMood};
 }
 
-bool MusCompClass::equalObj(const MusCompClass& secondObj) {
-    return musicName == secondObj.getName() &&
-           musicAuthor == secondObj.getAuthor() &&
-           musicMood.first == secondObj.getMood().first &&
-           musicMood.second == secondObj.getMood().second;
+bool MusCompClass::equalObj(MusCompClass* secondObj) {
+    return musicName == secondObj->getName() &&
+           musicAuthor == secondObj->getAuthor() &&
+           musicMood.first == secondObj->getMood().first &&
+           musicMood.second == secondObj->getMood().second;
 }
-
-

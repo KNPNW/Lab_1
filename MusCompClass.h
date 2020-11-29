@@ -1,7 +1,6 @@
 #ifndef L1_MUSCOMPCLASS_H
 #define L1_MUSCOMPCLASS_H
 
-#include "ParentClass.h"
 
 #include <string>
 
@@ -12,7 +11,7 @@ struct mood{
     double second;
 };
 
-class MusCompClass : public ParentClass{
+class MusCompClass{
 public:
     MusCompClass() = default;
     MusCompClass(const string& newName, const string& newAuthor, const mood& newMood);
@@ -23,13 +22,14 @@ public:
     [[nodiscard]] const string& getAuthor()const;
     [[nodiscard]] const mood& getMood() const;
 
+    virtual void printParams() const;
     void setName(const string& newName);
     void setAuthor(const string& newAuthor);
     void setMood(const mood& newMood);
     void setMood(const double& fMood, const double& sMood);
-    bool equalObj(const MusCompClass& secondObj);
+    bool equalObj(MusCompClass* secondObj);
 
-    virtual string get_class() override {return "MusCompClass";};
+    virtual string get_class() {return "MusCompClass";};
 private:
     string musicName {"no name"};
     string musicAuthor {"no author"};

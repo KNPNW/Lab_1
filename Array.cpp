@@ -1,6 +1,9 @@
 #include "Array.h"
 #include "MusCompClass.h"
+#include "PopyriClass.h"
+
 #include <iostream>
+#include <cmath>
 #include <fstream>
 #include <sstream>
 
@@ -11,17 +14,24 @@ Array::Array(){
     size = 0;
 }
 
-Array::Array(const MusCompClass& obj){
+Array::Array(MusCompClass* obj){
     objects = NULL;
     size = 0;
     this->pushBack(obj);
 }
+
 Array::Array(const Array &oldArray){
     size = oldArray.getSize();
-    objects = new MusCompClass[size];
+    objects = new MusCompClass*[size];
 
     for(int i = 0; i < size; i++){
-        objects[i] = oldArray.getObject(i);
+        MusCompClass *music = oldArray.getObject(i);
+        if (music->get_class() == "MusCompClass")
+            objects[i] = new MusCompClass(*music);
+        else{
+            PopyriClass* popyri = (PopyriClass*) music;
+            objects[i] = new PopyriClass(*popyri);
+        }
     }
 }
 
@@ -29,36 +39,65 @@ Array::~Array(){
     delete [] objects;
 }
 
-void Array::pushBack(const MusCompClass& newObj) {
+void Array::pushBack(MusCompClass* newObj) {
     addOnePlace();
-    objects[size] = newObj;
+    if (newObj->get_class() == "MusCompClass")
+        objects[size] = new MusCompClass(*newObj);
+    else{
+        PopyriClass* popyri = (PopyriClass*) newObj;
+        objects[size] = new PopyriClass(*popyri);
+    }
     size++;
 }
 
-void Array::insert(const MusCompClass& newObj, int num) {
+void Array::insert(MusCompClass* newObj, int num) {
     if (size == 0 && num == 0)
         this-> pushBack(newObj);
     else {
-        MusCompClass *newArr = new MusCompClass[size+1];
+        MusCompClass** newArr = new MusCompClass*[size+1];
         for (int i = 0; i < size; i++) {
-            newArr[i] = objects[i];
+            MusCompClass *music = this->getObject(i);
+            if (music->get_class() == "MusCompClass")
+                newArr[i] = new MusCompClass(*music);
+            else{
+                PopyriClass* popyri = (PopyriClass*) music;
+                newArr[i] = new PopyriClass(*popyri);
+            }
         }
         delete[] objects;
         objects = newArr;
         int i;
         objects[size] = objects[size - 1];
         for (i = size - 1; i >= num; i--) {
-            objects[i + 1] = objects[i];
+            MusCompClass *music = this->getObject(i);
+            if (music->get_class() == "MusCompClass")
+                objects[i + 1] = new MusCompClass(*music);
+            else{
+                PopyriClass* popyri = (PopyriClass*) music;
+                objects[i + 1] = new PopyriClass(*popyri);
+            }
         }
-        objects[i + 1] = newObj;
+        if (newObj->get_class() == "MusCompClass")
+            objects[i + 1] = new MusCompClass(*newObj);
+        else{
+            PopyriClass* popyri = (PopyriClass*) newObj;
+            objects[i + 1] = new PopyriClass(*popyri);
+        }
         size++;
     }
 }
 
 void Array::del(){
-    MusCompClass *newArr = new MusCompClass[size-1];
-    for (int i = 0; i < size - 1; i++)
-        newArr[i] = objects[i];
+    MusCompClass** newArr = new MusCompClass*[size-1];
+    for (int i = 0; i < size - 1; i++){
+        MusCompClass *music = this->getObject(i);
+        if (music->get_class() == "MusCompClass")
+            newArr[i] = new MusCompClass(*music);
+        else{
+            PopyriClass* popyri = (PopyriClass*) music;
+            newArr[i] = new PopyriClass(*popyri);
+        }
+    }
     delete [] objects;
     size--;
     objects = newArr;
@@ -70,13 +109,28 @@ void Array::del(int num){
         return;
     }
 
-    MusCompClass *newArr = new MusCompClass[size-1];
+    MusCompClass **newArr = new MusCompClass*[size-1];
     int i;
 
-    for(i = 0; i < num; i++)
-        newArr[i] = objects[i];
-    for (i = i + 1; i < size; i++)
-        newArr[i-1] = objects[i];
+    for(i=0; i < num; i++){
+        MusCompClass *music = this->getObject(i);
+        if (music->get_class() == "MusCompClass")
+            newArr[i] = new MusCompClass(*music);
+        else{
+            PopyriClass* popyri = (PopyriClass*) music;
+            newArr[i] = new PopyriClass(*popyri);
+        }
+    }
+
+    for(i = i + 1; i < size; i++){
+        MusCompClass *music = this->getObject(i);
+        if (music->get_class() == "MusCompClass")
+            newArr[i-1] = new MusCompClass(*music);
+        else{
+            PopyriClass* popyri = (PopyriClass*) music;
+            newArr[i-1] = new PopyriClass(*popyri);
+        }
+    }
 
     delete [] objects;
     size--;
@@ -90,9 +144,16 @@ void Array::delAll() {
 }
 
 void Array::addOnePlace(){
-    MusCompClass *newArr = new MusCompClass[size+1];
-    for (int i = 0; i < size; i++)
-        newArr[i] = objects[i];
+    MusCompClass **newArr = new MusCompClass*[size+1];
+    for (int i = 0; i < size; i++){
+        MusCompClass *music = this->getObject(i);
+        if (music->get_class() == "MusCompClass")
+            newArr[i] = new MusCompClass(*music);
+        else{
+            PopyriClass* popyri = (PopyriClass*) music;
+            newArr[i] = new PopyriClass(*popyri);
+        }
+    }
     delete [] objects;
     objects = newArr;
 }
@@ -101,16 +162,14 @@ const int Array::getSize() const {
     return size;
 }
 
-MusCompClass &Array::getObject(int num) const{
+MusCompClass* Array::getObject(int num) const{
     if(num < 0 || num >= size) {
-        cout << "Error. Object with num " << num << " don't exist!" << endl;
-        MusCompClass empty;
-        return empty;
+        throw out_of_range("index out of range");
     }
     return objects[num];
 }
 
-MusCompClass &Array::getLastObject() const {
+MusCompClass* Array::getLastObject() const {
     return objects[size-1];
 }
 
@@ -139,7 +198,7 @@ Array Array::sortLimit(double minFMood, double maxFMood, double minSMood, double
     int newSizeArr;
 
     for(int i = 0; i < size; i++){
-        middleMood = this->getObject(i).getMood();
+        middleMood = this->getObject(i)->getMood();
         if (middleMood.first >= minFMood && middleMood.first <= maxFMood &&
             middleMood.second >= minSMood && middleMood.second <= maxSMood)
             middleArr.pushBack(this->getObject(i));
@@ -152,7 +211,7 @@ Array Array::sortLimit(double minFMood, double maxFMood, double minSMood, double
     newSizeArr = middleArr.getSize();
     if(resultArr.getSize() == 0){
         for(int i = 0; i < newSizeArr; i++){
-            middleMood = middleArr.getObject(i).getMood();
+            middleMood = middleArr.getObject(i)->getMood();
             D = sqrt((0 - middleMood.first)*(0 - middleMood.first) + (0 - middleMood.second)*(0 - middleMood.second));
             if (D < minD) {
                 minD = D;
@@ -165,10 +224,10 @@ Array Array::sortLimit(double minFMood, double maxFMood, double minSMood, double
     while (middleArr.getSize() != 0){
         minD = 15;
         minNum = 0;
-        lastMood = resultArr.getLastObject().getMood();
+        lastMood = resultArr.getLastObject()->getMood();
         newSizeArr = middleArr.getSize();
         for(int i = 0; i < newSizeArr; i++){
-            middleMood = middleArr.getObject(i).getMood();
+            middleMood = middleArr.getObject(i)->getMood();
             D = sqrt((lastMood.first - middleMood.first)*(lastMood.first - middleMood.first) + (lastMood.second - middleMood.second)*(lastMood.second - middleMood.second));
             if (D < minD) {
                 minD = D;
@@ -183,8 +242,8 @@ Array Array::sortLimit(double minFMood, double maxFMood, double minSMood, double
 
 void Array::fromFile(const string& nameFile){
 
-    string author, name, fMoodS, sMoodS;
-    double fMood, sMood;
+    string author, name, fMoodS, sMoodS, typeClass, startMoodS, finishMoodS;
+    double fMood, sMood, finishMood, startMood;
 
     ifstream file(nameFile);
 
@@ -194,15 +253,33 @@ void Array::fromFile(const string& nameFile){
         if (size != 0)
             this->delAll();
         while(!file.eof()){
-            getline(file, author);
-            getline(file, name);
-            getline(file, fMoodS);
-            getline(file, sMoodS);
-            stringstream promF(fMoodS), promS(sMoodS);
-            promF >> fMood;
-            promS >> sMood;
-            MusCompClass obj(name, author, {fMood, sMood});
-            this->pushBack(obj);
+            getline(file, typeClass);
+            if (typeClass == "MusComp"){
+                getline(file, author);
+                getline(file, name);
+                getline(file, fMoodS);
+                getline(file, sMoodS);
+                stringstream promF(fMoodS), promS(sMoodS);
+                promF >> fMood;
+                promS >> sMood;
+                MusCompClass* obj = new MusCompClass(name, author, {fMood, sMood});
+                this->pushBack(obj);
+            }
+            else if (typeClass == "Popyri"){
+                getline(file, author);
+                getline(file, name);
+                getline(file, fMoodS);
+                getline(file, sMoodS);
+                getline(file, startMoodS);
+                getline(file, finishMoodS);
+                stringstream promF(fMoodS), promS(sMoodS), promStart(startMoodS), promFinish(finishMoodS);
+                promF >> fMood;
+                promS >> sMood;
+                promFinish >> finishMood;
+                promStart >> startMood;
+                PopyriClass*obj = new PopyriClass(name, author, {fMood, sMood}, {startMood, finishMood});
+                this->pushBack(obj);
+            }
         };
         file.close();
     }
@@ -211,24 +288,45 @@ void Array::fromFile(const string& nameFile){
 void Array::toFile(const string& nameFile){
     ofstream file(nameFile);
     for(int i = 0; i < size-1; i++){
-        MusCompClass obj = this->getObject(i);
-        file << obj.getAuthor() << endl << obj.getName() << endl << obj.getMood().first << endl <<  obj.getMood().second << endl;
+        MusCompClass *obj = this->getObject(i);
+        if(obj->get_class() == "MusCompClass")
+            file << "MusComp" << endl << obj->getAuthor() << endl << obj->getName() << endl << obj->getMood().first << endl <<  obj->getMood().second << endl;
+        else{
+            PopyriClass* objP = (PopyriClass*) obj;
+            file << "Popyri" << endl << objP->getAuthor() << endl << objP->getName() << endl << objP->getMood().first << endl <<  objP->getMood().second << endl
+                 << objP->getPopyriMood().startMood << endl << objP->getPopyriMood().finishMood << endl;
+        }
     }
-    MusCompClass obj = this->getObject(size-1);
-    file << obj.getAuthor() << endl << obj.getName() << endl << obj.getMood().first << endl <<  obj.getMood().second;
+    MusCompClass *obj = this->getObject(size-1);
+    if(obj->get_class() == "MusCompClass")
+        file << "MusComp" << endl << obj->getAuthor() << endl << obj->getName() << endl << obj->getMood().first << endl <<  obj->getMood().second;
+    else{
+        PopyriClass* objP = (PopyriClass*) obj;
+        file << "Popyri" << endl << objP->getAuthor() << endl << objP->getName() << endl << objP->getMood().first << endl <<  objP->getMood().second << endl
+             << objP->getPopyriMood().startMood << endl << objP->getPopyriMood().finishMood;
+    }
 
     file.close();
 }
 
 const bool Array::comparison(const Array& secondArray) const{
     int secondSize = secondArray.getSize();
-    MusCompClass obj;
 
     if(secondSize != size)
         return false;
 
     for(int i = 0; i < size; i++){
-        if (!objects[i].equalObj(secondArray.getObject(i)))
+        if (objects[i]->get_class() == secondArray.getObject(i)->get_class()){
+            if (objects[i]->get_class() == "MusCompClass"){
+                if (!objects[i]->equalObj(secondArray.getObject(i)))
+                    return false;
+            }else{
+                PopyriClass* obj1 = (PopyriClass*) objects[i];
+                PopyriClass* obj2 = (PopyriClass*) secondArray.getObject(i);
+                if (!obj1->equalPObj(obj2))
+                    return false;
+            }
+        }else
             return false;
     }
     return true;
@@ -239,8 +337,13 @@ void Array::copyArray(const Array& fromArray){
     int sizeArr = fromArray.getSize();
     MusCompClass obj;
     for(int i = 0; i < sizeArr; i++) {
-        obj = fromArray.getObject(i);
-        this->pushBack(obj);
+        MusCompClass *music = fromArray.getObject(i);
+        if (music->get_class() == "MusCompClass")
+            this->pushBack(new MusCompClass(*music));
+        else{
+            PopyriClass* popyri = (PopyriClass*) music;
+            this->pushBack(new PopyriClass(*popyri));
+        }
     }
 }
 
@@ -248,9 +351,18 @@ void printAllArray(const Array& arr){
     int size = arr.getSize();
     MusCompClass obj;
     for(int i = 0; i < size; i++){
-         obj = arr.getObject(i);
-         cout << "Element #" << i + 1 << endl;
-         cout << obj.getAuthor() << endl << obj.getName() << endl;
-         cout << obj.getMood().first << endl <<  obj.getMood().second << endl << endl;
+        MusCompClass *music = arr.getObject(i);
+        if (music->get_class() == "MusCompClass"){
+            cout << "Element MusComp#" << i + 1 << endl;
+            cout << music->getAuthor() << endl << music->getName() << endl;
+            cout << music->getMood().first << endl <<  music->getMood().second << endl << endl;
+        }
+        else{
+            PopyriClass* popyri = (PopyriClass*) music;
+            cout << "Element Popyri#" << i + 1 << endl;
+            cout << popyri->getAuthor() << endl << popyri->getName() << endl;
+            cout << popyri->getMood().first << endl <<  popyri->getMood().second << endl;
+            cout << popyri->getPopyriMood().startMood << endl << popyri->getPopyriMood().finishMood << endl;
+        }
     }
 }

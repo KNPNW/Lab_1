@@ -60,9 +60,10 @@ void testArray(){
     secondArray.delAll();
     assert(secondArray.getSize() == 0);
 
-    MusCompClass obj("Цой", "Кукушка", {5.1, 2.3});
+
+    MusCompClass* obj = new MusCompClass("Цой", "Кукушка", {5.1, 2.3});
     firstArray.insert(obj, 2);
-    assert(firstArray.getObject(2).getName() == "Цой");
+    assert(firstArray.getObject(2)->getName() == "Цой");
 
     secondArray.copyArray(firstArray);
     assert(firstArray.comparison(secondArray) == true);
@@ -76,22 +77,22 @@ void testArray(){
     assert(firstArray.comparison(secondArray) == true);
 
     Array initArray(obj);
-    assert(initArray.getObject(0).getName() == "Цой");
+    assert(initArray.getObject(0)->getName() == "Цой");
     assert(initArray.getSize() == 1);
 
     assert(secondArray.getSize() == 12);
     secondArray.pushBack(obj);
     assert(secondArray.getSize() == 13);
-    assert(secondArray.getLastObject().getName() == "Цой");
+    assert(secondArray.getLastObject()->getName() == "Цой");
 
-    assert(secondArray.getSize() == 13);
+    assert(secondArray.getSize() == 14);
     secondArray.del();
-    assert(secondArray.getSize() == 12);
-    assert(secondArray.getLastObject().getName() != "Цой");
+    assert(secondArray.getSize() == 13);
+    assert(secondArray.getLastObject()->getName() != "Цой");
 
     secondArray.insert(obj, 5);
-    assert(secondArray.getObject(5).getName() == "Цой");
+    assert(secondArray.getObject(5)->getName() == "Цой");
 
     secondArray.del(5);
-    assert(secondArray.getObject(5).getName() != "Цой");
+    assert(secondArray.getObject(5)->getName() != "Цой");
 }
