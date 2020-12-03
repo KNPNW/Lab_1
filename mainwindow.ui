@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1112</width>
+    <height>629</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <weight>50</weight>
+    <bold>false</bold>
+   </font>
+  </property>
+  <property name="mouseTracking">
+   <bool>false</bool>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="CollectionMusComp">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>40</y>
+      <width>401</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>23</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Коллекция музыкальных композиций</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="deleteButton">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>540</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>19</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="text">
+     <string>Удалить</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>80</y>
+      <width>451</width>
+      <height>501</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="NumberElement">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>490</y>
+      <width>131</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Номер элемента:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="numberElForDel">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>510</y>
+      <width>281</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lNameAuthor">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>60</y>
+      <width>131</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Имя исполнителя:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="nameAuthor">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>80</y>
+      <width>281</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lNameComp">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>110</y>
+      <width>191</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Название композиции:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="nameComp">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>130</y>
+      <width>281</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lMood">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>160</y>
+      <width>311</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Первое настроение       Второе настроение</string>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="sbFirstMood">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>180</y>
+      <width>64</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="decimals">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <double>10.000000000000000</double>
+    </property>
+    <property name="singleStep">
+     <double>0.100000000000000</double>
+    </property>
+    <property name="stepType">
+     <enum>QAbstractSpinBox::DefaultStepType</enum>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="sbSecondMood">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>180</y>
+      <width>64</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="decimals">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <double>10.000000000000000</double>
+    </property>
+    <property name="singleStep">
+     <double>0.100000000000000</double>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lPopyroMood">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>230</y>
+      <width>291</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Начальное настроение  Конечное настроение</string>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="sbStartMood">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>250</y>
+      <width>64</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="decimals">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <double>10.000000000000000</double>
+    </property>
+    <property name="singleStep">
+     <double>0.100000000000000</double>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="sbFinishMood">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>250</y>
+      <width>64</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="decimals">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <double>10.000000000000000</double>
+    </property>
+    <property name="singleStep">
+     <double>0.100000000000000</double>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addButton">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>280</y>
+      <width>271</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>19</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Добавить</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="forPopyri">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>210</y>
+      <width>111</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Для Поппури:</string>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame_3">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>330</y>
+      <width>301</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>291</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Начальное настроение Конечное настроение</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="minFMood">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>64</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <double>10.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="maxFMood">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>30</y>
+       <width>64</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <double>10.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>10.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="sortButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>271</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>19</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Сортировать</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="minSMood">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>64</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <double>10.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="maxSMood">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>60</y>
+       <width>64</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <double>10.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>10.000000000000000</double>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_2">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>490</y>
+      <width>301</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>50</y>
+      <width>301</width>
+      <height>271</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser_2">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>80</y>
+      <width>281</width>
+      <height>501</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>50</y>
+      <width>241</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>23</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Результат сортировки</string>
+    </property>
+   </widget>
+   <zorder>CollectionMusComp</zorder>
+   <zorder>textBrowser</zorder>
+   <zorder>NumberElement</zorder>
+   <zorder>lNameAuthor</zorder>
+   <zorder>lNameComp</zorder>
+   <zorder>lMood</zorder>
+   <zorder>lPopyroMood</zorder>
+   <zorder>forPopyri</zorder>
+   <zorder>frame_3</zorder>
+   <zorder>frame_2</zorder>
+   <zorder>numberElForDel</zorder>
+   <zorder>deleteButton</zorder>
+   <zorder>frame</zorder>
+   <zorder>nameAuthor</zorder>
+   <zorder>nameComp</zorder>
+   <zorder>sbFinishMood</zorder>
+   <zorder>sbFirstMood</zorder>
+   <zorder>sbSecondMood</zorder>
+   <zorder>sbStartMood</zorder>
+   <zorder>addButton</zorder>
+   <zorder>textBrowser_2</zorder>
+   <zorder>label_2</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1112</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="Open_file"/>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="Save_how"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>Правка</string>
+    </property>
+    <addaction name="action"/>
+    <addaction name="action_2"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_3"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="Open_file">
+   <property name="text">
+    <string>Открыть</string>
+   </property>
+  </action>
+  <action name="Save_how">
+   <property name="text">
+    <string>Сохранить как</string>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>Удалить всё</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>Очистить панель ввода</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
